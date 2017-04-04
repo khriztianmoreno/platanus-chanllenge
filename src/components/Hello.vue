@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>By @khriztianmoreno</h2>
+    <p class="lead">By @khriztianmoreno</p>
     <div class="row">
       <div class="col-md-12">
         <table class="table">
@@ -46,25 +46,43 @@ export default {
   },
   methods: {
     newMetric(valueCoin) {
-			if ((valueCoin[1] !== 'hb') && (valueCoin[0] !== '')) {
-				const bitCointItem = {
-					BID: valueCoin[1],
-					BID_SIZE: valueCoin[2],
-					ASK: valueCoin[3],
-					ASK_SIZE: valueCoin[4],
-					differenceBidAsk: valueCoin[1] - valueCoin[3],
-					differenceBidSizeAskSize: valueCoin[2] - valueCoin[4],
-					netoBID: valueCoin[1] / valueCoin[2],
-					netoASK: valueCoin[3] / valueCoin[4],
-				};
+      if ((valueCoin[1] !== 'hb') && (valueCoin[0] !== '')) {
+        const bitCointItem = {
+          BID: valueCoin[1],
+          BID_SIZE: valueCoin[2],
+          ASK: valueCoin[3],
+          ASK_SIZE: valueCoin[4],
+          differenceBidAsk: valueCoin[1] - valueCoin[3],
+          differenceBidSizeAskSize: valueCoin[2] - valueCoin[4],
+          netoBID: valueCoin[1] / valueCoin[2],
+          netoASK: valueCoin[3] / valueCoin[4],
+        };
 
-				if (this.myBitCoins.length > 4) {
-					this.myBitCoins.splice(4,1);
-				}
+        if (this.myBitCoins.length > 4) {
+          this.myBitCoins.splice(4, 1);
+        }
 
-				this.myBitCoins.unshift(bitCointItem)
-			}
-		},
+        this.myBitCoins.unshift(bitCointItem);
+      }
+    },
+  },
+  mounted() {
+    // Source https://developer.mozilla.org/es/docs/WebSockets-840092-dup/Writing_WebSocket_client_applications
+    const ws = new WebSocket('wss://api.bitfinex.com/ws/v2');
+    const msg = JSON.stringify({
+      event: 'subscribe',
+      channel: 'ticker',
+      symbol: 'tBTCUSD',
+    });
+
+    ws.onopen = () => { ws.send(msg); };
+
+    ws.onmessage = (event) => {
+      const response = JSON.parse(event.data);
+      if (Array.isArray(response)) {
+        this.newMetric(response);
+      }
+    };
   },
 };
 </script>
