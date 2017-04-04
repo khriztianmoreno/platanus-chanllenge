@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="container">
     <h1>{{ msg }}</h1>
     <p class="lead">By @khriztianmoreno</p>
     <div class="row">
@@ -47,6 +47,7 @@ export default {
   methods: {
     newMetric(valueCoin) {
       if ((valueCoin[1] !== 'hb') && (valueCoin[0] !== '')) {
+        // Create new item with formatted
         const bitCointItem = {
           BID: valueCoin[1],
           BID_SIZE: valueCoin[2],
@@ -58,6 +59,7 @@ export default {
           netoASK: valueCoin[3] / valueCoin[4],
         };
 
+        // Restrict the number of array elements
         if (this.myBitCoins.length > 4) {
           this.myBitCoins.splice(4, 1);
         }
@@ -86,11 +88,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-</style>
