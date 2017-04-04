@@ -25,8 +25,6 @@
               <td>{{item.ASK_SIZE}}</td>
               <td>{{item.differenceBidAsk}}</td>
               <td>{{item.differenceBidSizeAskSize}}</td>
-              <td>{{item.netoBID}}</td>
-              <td>{{item.netoASK}}</td>
             </tr>
           </tbody>
         </table>
@@ -55,8 +53,6 @@ export default {
           ASK_SIZE: valueCoin[4],
           differenceBidAsk: valueCoin[1] - valueCoin[3],
           differenceBidSizeAskSize: valueCoin[2] - valueCoin[4],
-          netoBID: valueCoin[1] / valueCoin[2],
-          netoASK: valueCoin[3] / valueCoin[4],
         };
 
         // Restrict the number of array elements
