@@ -41,7 +41,7 @@
     "function-bind": "1.1.1",
     "html-webpack-plugin": "2.30.1",
     "http-proxy-middleware": "0.17.4",
-    "webpack-bundle-analyzer": "2.13.1",
+    "webpack-bundle-analyzer": "3.3.2",
     "semver": "5.7.1",
     "opn": "4.0.2",
     "optimize-css-assets-webpack-plugin": "1.3.2",
